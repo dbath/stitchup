@@ -32,7 +32,7 @@ class StoreAligner(object):
         self._missing_policy = policy
         return self._fns
 
-    def iter_imgs(self):
+    def iter_imgs(self, return_times=False):
         assert len(self._fns)
         assert self._missing_policy is not None
 
@@ -43,7 +43,7 @@ class StoreAligner(object):
             imgs = []
             for i, store in enumerate(self._stores):
                 try:
-                    img, _ = store.get_image(frame_number=fn, exact_only=True)
+                    img, (f,t) = store.get_image(frame_number=fn, exact_only=True)
                     last_imgs[i] = img
                     imgs.append(img)
                 except ValueError:
@@ -57,5 +57,7 @@ class StoreAligner(object):
 
             if len(imgs) != len(self._stores):
                 continue
-
-            yield fn, imgs
+            if return_times:
+                yield imgs, (fn, t)
+            else:
+                yield fn, imgs
