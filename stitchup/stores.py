@@ -41,11 +41,14 @@ class StoreAligner(object):
 
         for fn in self._fns:
             imgs = []
+            TS = np.nan
             for i, store in enumerate(self._stores):
                 try:
                     img, (f,t) = store.get_image(frame_number=fn, exact_only=True)
                     last_imgs[i] = img
                     imgs.append(img)
+                    if store.user_metadata['camera_serial'] == '21990449':
+                        TS = t   #take timestamp from master machine
                 except ValueError:
                     print('store %d missing frame %s' % (i, fn))
                     if self._missing_policy == StoreAligner.MISSING_POLICY_HOLD:
@@ -58,6 +61,6 @@ class StoreAligner(object):
             if len(imgs) != len(self._stores):
                 continue
             if return_times:
-                yield imgs, (fn, t)
+                yield imgs, (fn, TS)
             else:
                 yield fn, imgs
