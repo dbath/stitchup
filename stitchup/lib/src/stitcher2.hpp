@@ -59,7 +59,7 @@
 #endif
 
 #define CV_INSTRUMENT_REGION(...) {;}
-#define ENABLE_LOG 1
+#define ENABLE_LOG 0
 
 #if ENABLE_LOG
   #include <iostream>
