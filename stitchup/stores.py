@@ -22,7 +22,16 @@ class StoreAligner(object):
                           StoreAligner.MISSING_POLICY_HOLD,
                           StoreAligner.MISSING_POLICY_BLACK)
 
-        fns_arr = [s.get_frame_metadata()['frame_number'] for s in self._stores]
+        # bugfix: synchronized stores whose fn0 was not reset
+        fns_arr = []
+	for s in self._stores:
+            fns = s.get_frame_metadata()['frame_number']
+            if s.user_metadata['synchronizationtime'] < 0:
+                assert len(s.user_metadata['synchronizationuuid']) == 32
+                fns = fns - fns[0]
+            fns_arr.append(fns)
+
+
         if self._missing_policy == StoreAligner.MISSING_POLICY_DROP:
             self._fns = functools.reduce(np.intersect1d, fns_arr)
         else:
