@@ -47,13 +47,15 @@ class StoreAligner(object):
 
         black_img = np.zeros(self._store_shape, dtype=np.uint8)
         last_imgs = [black_img for _ in range(len(self._stores))]
-
+        
+        first_frames = [store.frame_min for i, store in enumerate(self._stores)]
+        
         for fn in self._fns:
             imgs = []
             TS = np.nan
             for i, store in enumerate(self._stores):
                 try:
-                    img, (f,t) = store.get_image(frame_number=fn, exact_only=True)
+                    img, (f,t) = store.get_image(frame_number=(fn+first_frames[i]), exact_only=True)
                     last_imgs[i] = img
                     imgs.append(img)
                     if store.user_metadata['camera_serial'] == '21990449':
