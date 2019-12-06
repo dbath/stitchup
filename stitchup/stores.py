@@ -28,7 +28,7 @@ class StoreAligner(object):
             fns = s.get_frame_metadata()['frame_number']
             if s.user_metadata['synchronizationtime'] < 0:
                 assert len(s.user_metadata['synchronizationuuid']) == 32
-                fns = fns - fns[0]
+                fns = list(np.array(fns) - fns[0])
             fns_arr.append(fns)
 
 
