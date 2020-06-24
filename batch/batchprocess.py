@@ -41,7 +41,7 @@ class Undistort:
         """
         fileList = []
         times = []
-        for x in glob.glob(os.path.expanduser('~/stitchup/camera_calibrations/*.yaml')):
+        for x in glob.glob(os.path.expanduser('~/stitchup/camera_calibrations/*' + str(self.camSerial) + '.yaml')):
             fileList.append(x)
             times.append(getTimeFromTimeString(x.split('/')[-1].split('.')[0].rsplit('_',1)[0]))
         df = pd.DataFrame({'filename':fileList, 'times':times})
