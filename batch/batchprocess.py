@@ -240,15 +240,28 @@ if __name__ == "__main__":
     
     parser.add_argument('--date', type=str, required=False, default='current', help='if processing old data, provide a date to determine which calibration to use. Default is to most recent calibration.'  )
     parser.add_argument('--truncate', type=bool, required=False, default=False, help='make true to limit stitching to frames 2000-5000')
+    parser.add_argument('--slurm', type=bool, required=False, default=False, help='make true to use default settings for slurm, and pass the slurm taskID as the handle')
 
     args = parser.parse_args()
 
-    
-    BASE_CALIB = args.calibdir
-    BASE_DATA = args.dir
-    
-    HANDLE = args.handle.split(',')
-    DIRECTORIES = args.dir.split(',')
+    if args.slurm == True:
+        BASE_CALIB='/u/dbath/calibration_stitching/'
+        BASE_DATA = '/ptmp/dbath/'
+
+        # in slurm mode, the handle arg is an int, and we grab the list item 
+        # with that index from "stitch_list.txt"
+
+        FILE_LIST = open('/u/dbath/stitch_list.txt','r').readlines()
+        print(args.handle)
+        HANDLE = []
+        HANDLE.append(FILE_LIST[int(args.handle)].split("\n")[0]) #bugfix python reads the "\n"
+        print HANDLE[0]
+    else:
+        BASE_CALIB = args.calibdir
+        BASE_DATA = args.dir
+        HANDLE = args.handle.split(',')
+        print HANDLE
+    DIRECTORIES = BASE_DATA.split(',')
 
 
 
