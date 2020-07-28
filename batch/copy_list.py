@@ -41,7 +41,8 @@ with open('/media/recnodes/recnode_2mfish/stitch_list.txt', write_mode) as outpu
         if STATUS == 'ok':
             counter +=1
             if counter <= args.max:
-                output.writelines('scp -r ' + vidfile.split('/')[-1][:-1] +'* dbath@130.183.23.251:/ptmp/dbath \n')
+                #output.writelines('scp -r ' + vidfile.split('/')[-1][:-1] +'* dbath@130.183.23.251:/ptmp/dbath \n')
+                output.write(vidfile.split('/')[-1][:-1] + '* ')
                 print "appended: ", vidfile.rsplit('.',1)[0].split('/')[-1]
             else:
                 continue
