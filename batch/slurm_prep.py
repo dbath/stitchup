@@ -13,6 +13,7 @@ args = parser.parse_args()
 checklist = ['21990443','21990445','21990447','21990449']
 
 stitchlist = []
+counter = 0
 with open('/u/dbath/stitch_list.txt', "w") as output:
     for vidfile in glob.glob('/ptmp/dbath/*'+ args.handle + '*.21990443'):
         STATUS = 'ok'
@@ -26,4 +27,6 @@ with open('/u/dbath/stitch_list.txt', "w") as output:
         if STATUS == 'ok':
             output.writelines('_'.join(vidfile.rsplit('.',1)[0].split('_')[-2:])+'\n')
             print "appended: ", vidfile.rsplit('.',1)[0].split('/')[-1]
-    
+            counter +=1
+
+print str(counter), "files listed for stitching"
