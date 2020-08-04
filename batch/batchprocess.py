@@ -270,18 +270,19 @@ if __name__ == "__main__":
     # is conserved between calibration and stitching
     best_order = ('21990449','21990447','21990445','21990443')##('21990443', '21990447', '21990445', '21990449')
     
-    if 0:#args.date == 'current':
+    if args.date == 'current':
 
-        calibs = ('stitch_20190715_145513.21990443_undistorted',
-                  'stitch_20190715_145513.21990445_undistorted',
-                  'stitch_20190715_145513.21990447_undistorted',
-                  'stitch_20190715_145513.21990449_undistorted')
-    elif 0:#getTimeFromTimeString(args.date + '_000000') >= getTimeFromTimeString('20190715_000000'):
+        calibs = ('stitch_calibration01_20200730_112813.21990443_undistorted',
+                  'stitch_calibration01_20200730_112813.21990445_undistorted',
+                  'stitch_calibration01_20200730_112813.21990447_undistorted',
+                  'stitch_calibration01_20200730_112813.21990449_undistorted')
+    elif getTimeFromTimeString(args.date + '_000000') >= getTimeFromTimeString('20200730_000000'):
 
-        calibs = ('stitch_20190715_145513.21990443_undistorted',
-                  'stitch_20190715_145513.21990445_undistorted',
-                  'stitch_20190715_145513.21990447_undistorted',
-                  'stitch_20190715_145513.21990449_undistorted')
+
+        calibs = ('stitch_calibration01_20200730_112813.21990443_undistorted',
+                  'stitch_calibration01_20200730_112813.21990445_undistorted',
+                  'stitch_calibration01_20200730_112813.21990447_undistorted',
+                  'stitch_calibration01_20200730_112813.21990449_undistorted')
 
     elif 0:#getTimeFromTimeString(args.date + '_000000') >= getTimeFromTimeString('20190620_000000'):
     
